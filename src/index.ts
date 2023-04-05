@@ -4,10 +4,12 @@ dotenv.config()
 import express from 'express'
 import { v4 as uuidv4 } from 'uuid'
 import cors from 'cors'
+import { serve } from "inngest/express.js"
 
 import { logger } from './logger/index.js'
 import { ConnectDB } from './db/index.js'
 import { extractError } from './utils.js'
+import { inngest, inngestFuncs } from './inngest/index.js'
 
 const listenPort = process.env.PORT || '8080'
 
@@ -45,6 +47,8 @@ async function main() {
     req.id = reqID
     next()
   })
+
+  app.use("/inngest", express.json(), serve(inngest, inngestFuncs))
 
   if (process.env.HTTP_LOG === "1") {
     logger.debug("using HTTP logger")
