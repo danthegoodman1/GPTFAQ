@@ -7,6 +7,7 @@ export interface User {
 export interface Project {
   id: string
   domain: string
+  company_name: string
   user_id: string
   name: string
   created_at: Date

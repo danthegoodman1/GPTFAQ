@@ -10,6 +10,7 @@ create table if not exists users (
 create table if not exists projects (
   id text not null,
   domain text not null,
+  company_name text not null,
   user_id text not null references users(id) on set null
   name text not null,
 
