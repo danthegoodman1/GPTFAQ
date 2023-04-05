@@ -1,5 +1,5 @@
 import { logger } from "../logger/index.js";
-import { inngest } from "./index.js";
+import { inngest } from "./inngest.js";
 
 export const faqGeneration = inngest.createFunction({
   name: "FAQ Generation",

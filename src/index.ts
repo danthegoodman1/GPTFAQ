@@ -4,14 +4,21 @@ dotenv.config()
 import express from 'express'
 import { v4 as uuidv4 } from 'uuid'
 import cors from 'cors'
-import { serve } from "inngest/express.js"
+import path from 'path'
+import { fileURLToPath } from 'url'
 
+import { serve } from "inngest/express.js"
 import { logger } from './logger/index.js'
 import { ConnectDB } from './db/index.js'
 import { extractError } from './utils.js'
-import { inngest, inngestFuncs } from './inngest/index.js'
+import { inngestFuncs } from './inngest/index.js'
+import { inngest } from './inngest/inngest.js'
 
 const listenPort = process.env.PORT || '8080'
+
+const __filename = fileURLToPath(import.meta.url)
+
+const __dirname = path.dirname(__filename)
 
 declare global {
   namespace Express {
@@ -66,6 +73,9 @@ async function main() {
   // TODO: Poke endpoint
 
   // TODO: Request endpoint, lookup whether we have the schema, otherwise start fetch workflow
+
+  // TODO: JS snippet generation endpoint (this is temp)
+  app.use('/static', express.static(path.join(__dirname, 'public')))
 
   const server = app.listen(listenPort, () => {
     logger.info(`API listening on port ${listenPort}`)
