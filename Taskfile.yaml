@@ -7,11 +7,15 @@ env:
   PROJECT_NAME: blahufe
   IMG_NAME: sometghing
   REGION: us-east1
+  SERVICE_NAME: "fwefwef"
 
 tasks:
 
   docker:
     cmds:
-      - docker build . -t us-east1-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest --ssh default
+      - docker build . -t $REGION-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest --ssh default
       - gcloud auth configure-docker $REGION-docker.pkg.dev --account=$GCP_ACCOUNT
-      - docker push us-east1-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest
+      - docker push $REGION-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest
+  deploy:
+    cmds:
+      - gcloud run deploy $SERVICE_NAME --account=$GCP_ACCOUNT --project=$PROJECT --image $REGION-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest --region $REGION --platform managed --allow-unauthenticated
