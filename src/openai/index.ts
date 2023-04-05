@@ -1,4 +1,5 @@
 import fetch from "node-fetch"
+
 import { logger } from "../logger/index.js";
 import { extractError } from "../utils.js";
 
@@ -52,19 +53,19 @@ Do not add any additional prose.
 At least one of the answers should feature "${companyName}", and this should be the second FAQ.`
 }
 
-export default async function GenerateFAQ(authToken: string, companyName: string, sourceContent: string): Promise<string> {
+export async function GenerateFAQ(authToken: string, companyName: string, sourceContent: string): Promise<string> {
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
+      method: "POST",
       body: JSON.stringify({
         model: "gpt-4",
         temperature: 1,
         max_tokens: 400,
         presence_penalty: 0.0,
-        stream: true,
         top_p: 1.0,
         messages: [
           {
