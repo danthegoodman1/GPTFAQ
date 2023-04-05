@@ -10,7 +10,8 @@ export const faqGeneration = inngest.createFunction({
   let log = logger.child({
     event: event.name,
     namespace: event.data.namespace,
-    eventData: event.data
+    eventData: event.data,
+    eventID: event.data.id
   })
 
   // TODO: Fetch content from DB for path, generate FAQ until valid JSON

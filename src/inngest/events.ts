@@ -6,6 +6,7 @@ export type InngestEvents = {
 export interface GenerateFAQs {
   name: "app/faqs.generate"
   data: {
+    id: string
     namespace: string
     projectID: string
     /**
@@ -30,6 +31,7 @@ export interface GenerateFAQs {
 export interface FetchPage {
   name: "app/faqs.fetch_page"
   data: {
+    id: string
     namespace: string
     projectID: string
   }

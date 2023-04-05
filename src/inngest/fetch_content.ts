@@ -10,7 +10,8 @@ export const fetchPageContent = inngest.createFunction({
   let log = logger.child({
     event: event.name,
     namespace: event.data.namespace,
-    eventData: event.data
+    eventData: event.data,
+    eventID: event.data.id
   })
 
   // TODO: Look up URL from namespace and project
