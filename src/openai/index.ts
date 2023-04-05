@@ -34,6 +34,10 @@ export interface Usage {
   total_tokens:      number;
 }
 
+export interface FAQJSON {
+  question: string
+  answer: string
+}
 
 function generateInitialPrompt(companyName: string): string {
   return `You are an AI FAQ generating assistant.
