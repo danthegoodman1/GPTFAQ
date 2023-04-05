@@ -17,6 +17,4 @@ export const faqGeneration = inngest.createFunction({
 
   // TODO: Store generated FAQ in DB as Schema format
 
-  // TODO: 
-
 })

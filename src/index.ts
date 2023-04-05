@@ -22,7 +22,7 @@ declare global {
 
   namespace NodeJS {
     interface ProcessEnv {
-      API_TOKEN: string
+      OPENAI_TOKEN: string
     }
   }
 }
