@@ -1,0 +1,14 @@
+version: '3'
+
+dotenv: ['.env']
+
+env:
+  DOCKER_BUILDKIT: "1"
+
+tasks:
+
+  docker:
+    cmds:
+      - docker build . -t us-east1-docker.pkg.dev/proj-name/img-name/img-name:latest --ssh default
+      - gcloud auth configure-docker us-east1-docker.pkg.dev --account=$GCP_ACCOUNT
+      - docker push us-east1-docker.pkg.dev/proj-name/img-name/img-name:latest
