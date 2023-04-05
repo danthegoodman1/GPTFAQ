@@ -63,6 +63,10 @@ async function main() {
     res.sendStatus(200)
   })
 
+  // TODO: Poke endpoint
+
+  // TODO: Request endpoint, lookup whether we have the schema, otherwise start fetch workflow
+
   const server = app.listen(listenPort, () => {
     logger.info(`API listening on port ${listenPort}`)
   })
