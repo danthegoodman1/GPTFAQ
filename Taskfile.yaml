@@ -4,11 +4,14 @@ dotenv: ['.env']
 
 env:
   DOCKER_BUILDKIT: "1"
+  PROJECT_NAME: blahufe
+  IMG_NAME: sometghing
+  REGION: us-east1
 
 tasks:
 
   docker:
     cmds:
-      - docker build . -t us-east1-docker.pkg.dev/proj-name/img-name/img-name:latest --ssh default
-      - gcloud auth configure-docker us-east1-docker.pkg.dev --account=$GCP_ACCOUNT
-      - docker push us-east1-docker.pkg.dev/proj-name/img-name/img-name:latest
+      - docker build . -t us-east1-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest --ssh default
+      - gcloud auth configure-docker $REGION-docker.pkg.dev --account=$GCP_ACCOUNT
+      - docker push us-east1-docker.pkg.dev/$PROJECT_NAME/$IMG_NAME/$IMG_NAME:latest
