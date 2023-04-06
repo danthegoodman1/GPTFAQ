@@ -11,7 +11,7 @@ export interface Project {
   updated_at: Date
 }
 
-export async function insertProject(project: Project) {
+export async function insertProject(project: Omit<Project, "cerated_at" | "updated_at">) {
   const query = `
     INSERT INTO projects
       (id, domain, company_name, user_id, name)
