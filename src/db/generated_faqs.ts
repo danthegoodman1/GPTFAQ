@@ -5,7 +5,7 @@ export interface GeneratedFAQ {
   user_id: string
   project_id: string
   content: string
-  expires: Date
+  expires: Date | null
   created_at: Date
   updated_at: Date
 }

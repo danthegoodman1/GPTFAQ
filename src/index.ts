@@ -130,7 +130,7 @@ async function main() {
         logger.debug("found an existing faq, sending it")
         res.setHeader("content-type", "application/ld+json")
         res.send(faq.content)
-        if (faq.expires.getTime() < new Date().getTime()) {
+        if (faq.expires && faq.expires.getTime() < new Date().getTime()) {
           logger.debug("found faq was expired, refreshing in background")
           await inngest.send("app/faqs.fetch_page", {
             data: {

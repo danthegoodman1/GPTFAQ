@@ -90,7 +90,7 @@ export const faqGeneration = inngest.createFunction({
         id: event.data.path,
         project_id: event.data.projectID,
         user_id: project.user_id,
-        expires: new Date(new Date().getTime() + HOURS * 12),
+        expires: process.env.EXPIRE_HOURS === "0" ? null : new Date(new Date().getTime() + HOURS * Number(process.env.EXPIRE_HOURS || 12)),
         content: JSON.stringify(finalFAQ)
       })
       log.debug("inserted generated faq")

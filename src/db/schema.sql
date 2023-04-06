@@ -29,7 +29,7 @@ create table if not exists generated_faqs (
   project_id text not null references projects(id) on delete no action,
   content text not null,
 
-  expires timestamptz not null,
+  expires timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
 
