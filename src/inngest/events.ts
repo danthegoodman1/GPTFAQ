@@ -20,7 +20,7 @@ export interface GenerateFAQs {
      *
      * If we have content, the content type (if we know)
      */
-    contentType?: string
+    contentType?: "text" | "markdown" | "html"
     /**
      * Path to lookup in the DB for the page.
      */

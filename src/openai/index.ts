@@ -50,11 +50,11 @@ The content between the <webpage> tags is an article from a webpage. Generate 2 
 },
 ]
 
-Where the answer are in html using only <p> and <a> tags as needed, retaining links (href) within the <a> tags if relevant for the answer and found in the page content. Keep all answers concise and no more than one sentence.
+Where the answer are in html using only <p>, <b>, and <a> tags as needed, retaining links (href) within the <a> tags if relevant for the answer and found in the page content. Keep all answers concise and no more than one sentence.
 
 Do not add any additional prose.
 
-At least one of the answers should feature "${companyName}", and this should be the second FAQ.`
+At least one of the answers should try to feature "${companyName}", and this should be the second FAQ if it is mentioned.`
 }
 
 export async function GenerateFAQ(authToken: string, companyName: string, sourceContent: string): Promise<string> {
