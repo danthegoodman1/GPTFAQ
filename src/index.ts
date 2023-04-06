@@ -13,7 +13,9 @@ import { ConnectDB } from './db/index.js'
 import { extractError } from './utils.js'
 import { inngestFuncs } from './inngest/index.js'
 import { inngest } from './inngest/inngest.js'
-import { selectGeneratedFAQ } from './db/generated_faqs.js'
+import { selectGeneratedFAQ, upsertGeneratedFAQ } from './db/generated_faqs.js'
+import { selectProject } from './db/project.js'
+import { upsertProjectContent } from './db/project_content.js'
 
 const listenPort = process.env.PORT || '8080'
 const __filename = fileURLToPath(import.meta.url)
@@ -69,7 +71,51 @@ async function main() {
     res.sendStatus(200)
   })
 
-  // TODO: Poke endpoint, needs some auth
+  // TODO: Add auth
+  app.post("/faqs/:projectID",  async (req: Request<{projectID: string}, {}, { path: string, content?: string, contentType?: "text" | "html" | "markdown" }, {}>, res) => {
+    try {
+      const projectID = req.params.projectID
+      logger.debug("got a poke, regenerating")
+      if (req.body.content && req.body.contentType) {
+        logger.debug(`got provided content of type: '${req.body.contentType}'`)
+        // Write it
+        const project = await selectProject(projectID)
+        if (!project) {
+          throw new Error(`project not found: ${projectID}`)
+        }
+        await upsertProjectContent({
+          content: req.body.content,
+          format: req.body.contentType,
+          id: req.body.path,
+          project_id: projectID,
+          user_id: project.user_id
+        })
+        await inngest.send("app/faqs.generate", {
+          data: {
+            id: `${projectID}_${req.body.path}_req_${req.id}`,
+            path: req.body.path,
+            projectID
+          }
+        })
+      } else {
+        // Otherwise we did not find it, request generation
+        await inngest.send("app/faqs.fetch_page", {
+          data: {
+            id: `${projectID}_${req.body.path}_inital`, // dedupe
+            path: req.body.path,
+            projectID
+          }
+        })
+      }
+
+      return res.sendStatus(201)
+    } catch (error) {
+      logger.error({
+        err: extractError(error)
+      }, "error handling request")
+      return res.status(500).send(`Internal error! Our team has been notified and are working on a fix. Req ID: ${req.id}`)
+    }
+  })
 
   app.get("/faqs/:projectID", async (req: Request<{projectID: string}, {}, {}, {path: string}>, res) => {
     try {

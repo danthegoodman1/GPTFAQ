@@ -4,7 +4,7 @@ import { logger } from "../logger/index.js";
 import { FAQJSON, GenerateFAQ } from "../openai/index.js";
 import { extractError } from "../utils.js";
 import { inngest } from "./inngest.js";
-import { faqJSONToSchema } from "../structued_data/schema.js";
+import { faqJSONToSchema } from "../structued_data/faq.js";
 import { upsertGeneratedFAQ } from "../db/generated_faqs.js";
 import { RowsNotFound } from "../db/errors.js";
 
@@ -93,7 +93,7 @@ export const faqGeneration = inngest.createFunction({
         expires: new Date(new Date().getTime() + HOURS * 12),
         content: JSON.stringify(finalFAQ)
       })
-      log.debug("inserted generated schema")
+      log.debug("inserted generated faq")
     } catch (error) {
       log.error({
         err: extractError(error)
