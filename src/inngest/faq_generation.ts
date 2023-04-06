@@ -1,5 +1,3 @@
-import { FAQPage } from "schema-dts"
-
 import { selectProject } from "../db/project.js";
 import { getProjectContent } from "../db/project_content.js";
 import { logger } from "../logger/index.js";
