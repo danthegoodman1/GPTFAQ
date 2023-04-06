@@ -64,3 +64,15 @@ First you need to run the `src/db/schema.sql` on postgres or cockroachdb.
 You must put the snippet found at `snippet.html` in your site somewhere, with the `script.js` being served as well.
 
 Search engines will wait for this to load, but keep in mind that the generation has to be ready for them to see it, and it may be a long time before they revisit. Poking is highly encouraged.
+
+### Running locally
+
+In one terminal run:
+```
+npx inngest-cli@latest dev -u http://localhost:8080/inngest
+```
+
+In another, run:
+```
+npm run dev
+```
