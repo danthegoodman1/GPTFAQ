@@ -31,7 +31,7 @@ export const faqGeneration = inngest.createFunction({
     try {
       let content: string
       if (event.data.content) {
-        log.warn("using provided content")
+        log.warn("using provided content, this should be for testing only!")
         content = event.data.content
       } else {
         log.debug("getting project content")
