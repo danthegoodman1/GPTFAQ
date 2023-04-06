@@ -71,7 +71,6 @@ async function main() {
     res.sendStatus(200)
   })
 
-  // TODO: Add auth
   app.post("/faqs/:projectID",  async (req: Request<{projectID: string}, {}, { path: string, content?: string, contentType?: "text" | "html" | "markdown" }, {}>, res) => {
     try {
       const projectID = req.params.projectID
@@ -82,6 +81,10 @@ async function main() {
         const project = await selectProject(projectID)
         if (!project) {
           throw new Error(`project not found: ${projectID}`)
+        }
+        // Simple auth
+        if (req.headers.authorization !== project.poke_token) {
+          return res.status(401).send("invalid poke token")
         }
         await upsertProjectContent({
           content: req.body.content,

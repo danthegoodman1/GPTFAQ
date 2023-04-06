@@ -11,6 +11,7 @@ create table if not exists projects (
   id text not null,
   domain text not null,
   company_name text not null,
+  poke_token text not null,
   user_id text not null references users(id) on delete no action,
   name text not null,
   selector text,

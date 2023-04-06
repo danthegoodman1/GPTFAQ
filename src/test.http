@@ -4,6 +4,7 @@ GET http://localhost:8080/faqs/test_project?path=/post/optimizing-your-tweets-to
 ### Poke regeneration with provided content
 POST http://localhost:8080/faqs/test_project
 Content-Type: application/json
+Authorization: fwehufheuiwhfiuhewuihf
 
 {
   "path": "/post/optimizing-your-tweets-to-maximize-the-algorithm",
