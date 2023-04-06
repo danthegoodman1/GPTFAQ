@@ -13,6 +13,7 @@ create table if not exists projects (
   company_name text not null,
   user_id text not null references users(id) on delete no action,
   name text not null,
+  selector text,
 
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),

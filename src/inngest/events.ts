@@ -7,7 +7,6 @@ export interface GenerateFAQs {
   name: "app/faqs.generate"
   data: {
     id: string
-    namespace: string
     projectID: string
     /**
      * DEBUG ONLY
@@ -32,7 +31,7 @@ export interface FetchPage {
   name: "app/faqs.fetch_page"
   data: {
     id: string
-    namespace: string
     projectID: string
+    path: string
   }
 }

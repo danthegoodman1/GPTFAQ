@@ -9,14 +9,15 @@ export interface Project {
   name: string
   created_at: Date
   updated_at: Date
+  selector: string | null
 }
 
 export async function insertProject(project: Omit<Project, "cerated_at" | "updated_at">) {
   const query = `
     INSERT INTO projects
-      (id, domain, company_name, user_id, name)
+      (id, domain, company_name, user_id, name, selector)
     VALUES
-      ($1, $2, $3, $4, $5)
+      ($1, $2, $3, $4, $5, $6)
   `
 
   const values = [
@@ -25,6 +26,7 @@ export async function insertProject(project: Omit<Project, "cerated_at" | "updat
     project.company_name,
     project.user_id,
     project.name,
+    project.selector
   ]
 
   await pool.query(query, values)

@@ -17,18 +17,17 @@ export const faqGeneration = inngest.createFunction({
 }, async ({ event, step }) => {
   let log = logger.child({
     event: event.name,
-    namespace: event.data.namespace,
     eventData: event.data,
     eventID: event.data.id
   })
 
   // Get project info
-  const project = await step.run("get project info", async () => {
+  const project = await step.run("Get project info", async () => {
     return await selectProject(event.data.projectID)
   })
 
   // Fetch content from DB for path, generate FAQ until valid JSON
-  const faqJSON = await step.run("generate faq", async () => {
+  const faqJSON = await step.run("Generate faq", async () => {
     try {
       let content: string
       if (event.data.content) {
@@ -67,7 +66,6 @@ export const faqGeneration = inngest.createFunction({
     }
   })
 
-  // TODO: Store generated FAQ in DB as Schema format
   await step.run("Transform and store FAQ", async () => {
     try {
       const finalFAQ = faqJSONToSchema(faqJSON)

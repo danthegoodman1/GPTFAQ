@@ -28,6 +28,7 @@
     "vitest": "^0.29.8"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "esm": "^3.2.25",
