@@ -69,7 +69,7 @@ async function main() {
     res.sendStatus(200)
   })
 
-  // TODO: Poke endpoint
+  // TODO: Poke endpoint, needs some auth
 
   app.get("/faqs/:projectID", async (req: Request<{projectID: string}, {}, {}, {path: string}>, res) => {
     try {
@@ -85,7 +85,7 @@ async function main() {
           logger.debug("found faq was expired, refreshing in background")
           await inngest.send("app/faqs.fetch_page", {
             data: {
-              id: faq.expires.getTime().toString(), // dedupe for this refresh
+              id: `${projectID}_${path}_${faq.expires.getTime().toString()}`, // dedupe for this refresh
               path,
               projectID
             }
@@ -97,7 +97,7 @@ async function main() {
       // Otherwise we did not find it, request generation
       await inngest.send("app/faqs.fetch_page", {
         data: {
-          id: "initial", // dedupe
+          id: `${projectID}_${path}_inital`, // dedupe
           path,
           projectID
         }
