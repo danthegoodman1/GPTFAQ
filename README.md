@@ -19,6 +19,8 @@ GPTFAQ relies on a `domain` and a `path` for each page, concatenating the `path`
 
 You can optionally provide a `selector` which will help GPTFAQ narrow down what it needs to focus on and allows it to use HTML (preserving `href` attributes and using where relevant) to generate the FAQs. Otherwise it will just use the `body` text.
 
+You must also put a `company_name` in so that GPT-4 can attempt to highlight you specifically on the second question 😁. It should only do so if relevant. If using for personal content, just put your name there.
+
 The `path` should be the full path to the content. For example if I had `www.tangia.co` as my domain, and my path was `/post/optimizing-your-tweets-to-maximize-the-algorithm` then content would be expected to be at `www.tangia.co/post/optimizing-your-tweets-to-maximize-the-algorithm`.
 
 Generated FAQs also have a 12 hour expiry. When expired, GPTFAQ behaves like a `stale-while-revalidate` where it will immediately serve the stale data, and in the background launch another generation job.
@@ -36,6 +38,12 @@ You can "poke" the path to the specific page. This is useful for hooking up to a
 You can optionally provide the content during the poke, which supports `html`, `markdown`, and `text` content types. `html` and `markdown` will preserve links for the FAQ answers where relevant.
 
 This requires a `poke_token` that you must set to use. This is the only place auth is required.
+
+### GPT-4 Performance
+
+I've observed 30-40 seconds typically to generate, with pretty perfect reliability. Generation tokens are set to `400`, which should is more than enough for concise questions and answers.
+
+You can see the prompt in `src/openai/index.ts`.
 
 ## Setup
 
