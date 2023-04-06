@@ -5,7 +5,7 @@ import { FAQJSON, GenerateFAQ } from "../openai/index.js";
 import { extractError } from "../utils.js";
 import { inngest } from "./inngest.js";
 import { faqJSONToSchema } from "../structued_data/schema.js";
-import { insertGeneratedFAQ } from "../db/generated_faqs.js";
+import { upsertGeneratedFAQ } from "../db/generated_faqs.js";
 import { RowsNotFound } from "../db/errors.js";
 
 const maxInferenceAttempts = 3
@@ -86,7 +86,7 @@ export const faqGeneration = inngest.createFunction({
         finalFAQ
       }, "generated final faq")
 
-      await insertGeneratedFAQ({
+      await upsertGeneratedFAQ({
         id: event.data.path,
         project_id: event.data.projectID,
         user_id: project.user_id,

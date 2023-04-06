@@ -10,7 +10,7 @@ export interface GeneratedFAQ {
   updated_at: Date
 }
 
-export async function insertGeneratedFAQ(data: Omit<GeneratedFAQ, 'created_at' | 'updated_at'>): Promise<void> {
+export async function upsertGeneratedFAQ(data: Omit<GeneratedFAQ, 'created_at' | 'updated_at'>): Promise<void> {
   const query = `INSERT INTO generated_faqs (id, user_id, project_id, content, expires) VALUES ($1, $2, $3, $4, $5)
   ON CONFLICT (project_id, id) DO UPDATE
   set content = excluded.content, updated_at = now(), expires = excluded.expires

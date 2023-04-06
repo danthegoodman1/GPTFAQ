@@ -3,7 +3,7 @@ import { logger } from "../logger/index.js";
 import { inngest } from "./inngest.js";
 import { extractHTMLText, stripHTMLAttributes } from "../html/index.js";
 import { extractError } from "../utils.js";
-import { insertProjectContent } from "../db/project_content.js";
+import { upsertProjectContent } from "../db/project_content.js";
 import fetch from "node-fetch";
 
 export const fetchPageContent = inngest.createFunction({
@@ -52,10 +52,11 @@ export const fetchPageContent = inngest.createFunction({
         content = htmlContent
       } else {
         // Just use the body text
+        log.debug("no selector, using plain text")
         content = extractHTMLText(content)
       }
 
-      await insertProjectContent({
+      await upsertProjectContent({
         content,
         format: project.selector ? "html" : "text",
         id: event.data.path,
@@ -66,7 +67,7 @@ export const fetchPageContent = inngest.createFunction({
     } catch (error) {
       log.error({
         err: extractError(error)
-      }, "fetching and cleaning HTML")
+      }, "error fetching and cleaning HTML")
       throw error
     }
   })

@@ -11,7 +11,7 @@ export interface ProjectContent {
   updated_at: Date
 }
 
-export async function insertProjectContent(pc: Omit<ProjectContent, "updated_at" | "created_at">) {
+export async function upsertProjectContent(pc: Omit<ProjectContent, "updated_at" | "created_at">) {
   const query = `
     INSERT INTO project_content
       (id, user_id, project_id, content, format)
