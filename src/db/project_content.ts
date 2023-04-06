@@ -18,7 +18,7 @@ export async function upsertProjectContent(pc: Omit<ProjectContent, "updated_at"
     VALUES
       ($1, $2, $3, $4, $5)
     ON CONFLICT (project_id, id) DO UPDATE
-    SET content = excluded.content, updated_at = NOW()
+    SET content = excluded.content, updated_at = NOW(), format = excluded.format
     `
 
   const values = [
