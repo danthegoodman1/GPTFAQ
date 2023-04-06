@@ -1,14 +1,20 @@
 <script>
   window.faqProjectID = "test_project"
+  window.faqAPI = "https://example.com"
 </script>
 <script src="https://example.com/script.js"></script>
 
 <!-- script.js -->
 <script>
-  // Fetch url
-  // Make request
-  const script = document.createElement('script');
-  script.setAttribute('type', 'application/ld+json');
-  script.textContent = structuredDataText;
-  document.head.appendChild(script);
+  (async () => {
+    const res = await fetch(window.faqAPI + "/faqs/" + window.faqProjectID + `?path=${encodeURIComponent(window.location.pathname)}`);
+    if (res.status !== 200) {
+      console.error(`FAQ fetch failed status ${res.status}: ${await res.text()}`)
+      return;
+    }
+    const script = document.createElement('script');
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = await res.text();
+    document.head.appendChild(script);
+  })()
 </script>
