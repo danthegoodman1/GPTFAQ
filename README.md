@@ -2,6 +2,8 @@
 
 Generates FAQ structured data for your content to increase SEO rankings.
 
+Run in production at [Tangia](www.tangia.co)
+
 ## How it works
 
 Search engines will use a special `application/ld+json` format for structured data on your webpage.
