@@ -1,6 +1,6 @@
 import { AnyNode, Cheerio, CheerioAPI, Element, load } from "cheerio"
 
-export const stripHTMLAttributes = (html: string, selector: string) => {
+export const stripHTMLAttributes = (html: string, selector: string): string | null => {
   let $ = load(html)
   let elem = $(selector)
   // Remove useless tags
@@ -10,7 +10,7 @@ export const stripHTMLAttributes = (html: string, selector: string) => {
   elem.children().each((i, elem) => recursiveChildRemoval($, elem))
   const finalContent = elem.html()
   if (!finalContent) {
-    throw new Error("got not final content!")
+    return null
   }
   return finalContent
 }

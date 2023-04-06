@@ -32,7 +32,7 @@ export async function insertProject(project: Omit<Project, "cerated_at" | "updat
   await pool.query(query, values)
 }
 
-export async function selectProject(id: string): Promise<Project> {
+export async function selectProject(id: string): Promise<Project | null> {
   const query = `
     SELECT *
     FROM projects
@@ -44,6 +44,6 @@ export async function selectProject(id: string): Promise<Project> {
   if (rows.length > 0) {
     return rows[0] as Project
   } else {
-    throw new RowsNotFound("projects")
+    return null
   }
 }

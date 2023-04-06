@@ -22,17 +22,19 @@ create table if not exists projects (
 );
 create index if not exists projects_by_user on projects(user_id);
 
-create table if not exists generated_schemas (
+create table if not exists generated_faqs (
   id text not null,
   user_id text not null references users(id) on delete no action,
   project_id text not null references projects(id) on delete no action,
+  content text not null,
 
+  expires timestamptz not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
 
   primary key(project_id, id)
 );
--- create index if not exists generated_schemas_by_user_id ON generated_schemas(user_id);
+-- create index if not exists generated_faqs_by_user_id ON generated_faqs(user_id);
 
 create table if not exists project_content (
   id text not null,

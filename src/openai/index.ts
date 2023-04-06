@@ -42,7 +42,7 @@ export interface FAQJSON {
 function generateInitialPrompt(companyName: string): string {
   return `You are an AI FAQ generating assistant.
 
-The content between the <webpage> tags is an article from a webpage. Generate 2 to 4 FAQs in JSON format like:
+The content between the <webpage> tags is an article from a webpage. Generate 2 to 3 FAQs in JSON format like:
 [
 {
   "question": "INSERT QUESTION HERE",

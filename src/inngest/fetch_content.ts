@@ -4,6 +4,7 @@ import { inngest } from "./inngest.js";
 import { extractHTMLText, stripHTMLAttributes } from "../html/index.js";
 import { extractError } from "../utils.js";
 import { insertProjectContent } from "../db/project_content.js";
+import fetch from "node-fetch";
 
 export const fetchPageContent = inngest.createFunction({
   name: "Fetch page content",
@@ -28,21 +29,30 @@ export const fetchPageContent = inngest.createFunction({
       throw error
     }
   })
+  if (!project) {
+    logger.warn("did not find project, aborting workflow")
+    return
+  }
 
-  // TODO: Fetch page content and clean HTML, store in DB for path
   await step.run("Fetch and clean HTML", async () => {
     log.debug("fetching and cleaning HTML")
     try {
-      // TODO: Fetch content
+      // Fetch content
+      const res = await fetch(new URL(`https://${project.domain}${event.data.path}`))
+      let content = await res.text()
 
       // Clean content
-      let content: string
       if (project.selector) {
         // We have HTML, let's use that
-        content = stripHTMLAttributes("", project.selector)
+        const htmlContent = stripHTMLAttributes(content, project.selector)
+        if (!htmlContent) {
+          log.error("got no html content, aborting")
+          return
+        }
+        content = htmlContent
       } else {
         // Just use the body text
-        content = extractHTMLText("")
+        content = extractHTMLText(content)
       }
 
       await insertProjectContent({

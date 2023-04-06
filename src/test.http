@@ -1,0 +1,2 @@
+### Get FAQ for path
+GET http://localhost:8080/faqs/test_project?path=/post/optimizing-your-tweets-to-maximize-the-algorithm

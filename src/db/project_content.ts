@@ -30,9 +30,9 @@ export async function insertProjectContent(pc: Omit<ProjectContent, "updated_at"
   await pool.query(query, values)
 }
 
-export async function getProjectContent(projectID: string, id: string): Promise<ProjectContent> {
+export async function getProjectContent(projectID: string, id: string): Promise<ProjectContent | null> {
   const q = await pool.query<ProjectContent>(`select * from project_content where project_id = $1 and id = $2`, [projectID, id])
-  if (q.rowCount === 0) throw new RowsNotFound("project_content")
+  if (q.rowCount === 0) return null
 
   return q.rows[0]
 }
