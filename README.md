@@ -1,6 +1,8 @@
 # GPTFAQ
 
-Generates FAQ structured data for your content to increase SEO rankings.
+Generates FAQ structured data on auto-pilot for your content to increase SEO rankings. [See Google's docs on FAQPage structured data.](https://developers.google.com/search/docs/appearance/structured-data/faqpage).
+
+FAQPage is incredible at boosting SEO rankings for informational content. GPTFAQ puts that on auto-pilot.
 
 Run in production at [Tangia](www.tangia.co)
 
