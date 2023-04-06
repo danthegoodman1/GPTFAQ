@@ -17,6 +17,8 @@ export async function insertProjectContent(pc: Omit<ProjectContent, "updated_at"
       (id, user_id, project_id, content, format)
     VALUES
       ($1, $2, $3, $4, $5)
+    ON CONFLICT (project_id, id) DO UPDATE
+    SET content = excluded.content, updated_at = NOW()
     `
 
   const values = [
