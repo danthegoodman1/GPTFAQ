@@ -99,5 +99,5 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "exclude": ["src/**/*.test.ts", "babel.config.cjs", "build", "script.js"]
+  "exclude": ["src/**/*.test.ts", "babel.config.cjs", "build", "script.js", "vitest.config.ts"]
 }
