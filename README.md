@@ -4,7 +4,7 @@ Generates FAQ structured data on auto-pilot for your content to increase SEO ran
 
 FAQPage is incredible at boosting SEO rankings for informational content. GPTFAQ puts that on auto-pilot.
 
-Run in production at [Tangia](www.tangia.co)
+Run in production at [Tangia](https://www.tangia.co)
 
 ## How it works
 
